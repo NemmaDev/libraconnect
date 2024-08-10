@@ -1,0 +1,239 @@
+<app-navbar class="fixed-top "></app-navbar>
+<div class="container my-5 pt-5">
+  <h2 class="text-center mb-4">Tableau de Bord Administrateur</h2>
+
+  <!-- Statistics Section -->
+<div class="row">
+  <div class="col-md-12 mb-3">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title">Statistiques</h5>
+        <div class="row">
+          <div class="col-md-4 mb-3">
+            <div class="card shadow-sm">
+              <div class="card-body text-center">
+                <h5 class="card-title">Total des Utilisateurs</h5>
+                <p class="card-text">{{ totalUsers }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 mb-3">
+            <div class="card shadow-sm">
+              <div class="card-body text-center">
+                <h5 class="card-title">Total des Emprunts</h5>
+                <p class="card-text">{{ totalLoans }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 mb-3">
+            <div class="card shadow-sm">
+              <div class="card-body text-center">
+                <h5 class="card-title">Total des Livres</h5>
+                <p class="card-text">{{ totalBooks }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- User Management Section -->
+<div class="row">
+  <div class="col-md-12 mb-3">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title">Gestion des Utilisateurs</h5>
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Nom</th>
+                <th>Email</th>
+                <th>Date de Naissance</th>
+                <th>Téléphone</th>
+                <th>Adresse</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let user of users">
+                <td>{{ user.name }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.dateOfBirth }}</td>
+                <td>{{ user.phone }}</td>
+                <td>{{ user.address }}</td>
+                <td>
+                  <button class="btn btn-warning btn-sm me-2" (click)="editUser(user)">Modifier</button>
+                  <button class="btn btn-danger btn-sm" (click)="deleteUser(user.id)">Supprimer</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Edit User Modal -->
+<div class="modal fade" tabindex="-1" role="dialog" [ngClass]="{'show': showUserModal}" [ngStyle]="{'display': showUserModal ? 'block' : 'none'}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{ selectedUser ? 'Modifier l\'Utilisateur' : 'Ajouter un Utilisateur' }}</h5>
+        <button type="button" class="btn-close" (click)="closeUserModal()" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="userForm" (ngSubmit)="addOrUpdateUser()">
+          <div class="form-group mb-3">
+            <label for="name">Nom</label>
+            <input type="text" id="name" class="form-control" formControlName="name" required>
+          </div>
+          <div class="form-group mb-3">
+            <label for="email">Email</label>
+            <input type="email" id="email" class="form-control" formControlName="email" required>
+          </div>
+          <div class="form-group mb-3">
+            <label for="dateOfBirth">Date de Naissance</label>
+            <input type="date" id="dateOfBirth" class="form-control" formControlName="dateOfBirth" required>
+          </div>
+          <div class="form-group mb-3">
+            <label for="phone">Téléphone</label>
+            <input type="text" id="phone" class="form-control" formControlName="phone" required>
+          </div>
+          <div class="form-group mb-3">
+            <label for="address">Adresse</label>
+            <input type="text" id="address" class="form-control" formControlName="address" required>
+          </div>
+          <button type="submit" class="btn btn-primary">{{ selectedUser ? 'Mettre à jour' : 'Enregistrer' }}</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Book Loans Section -->
+<div class="row">
+  <div class="col-md-12 mb-3">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title">Gestion des Emprunts</h5>
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Emprunteur</th>
+                <th>Nom du Livre</th>
+                <th>Auteur</th>
+                <th>Date d'emprunt</th>
+                <th>Date de retour</th>
+                <th>Statut</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let loan of loans">
+                <td>{{ loan.borrowerName }}</td>
+                <td>{{ loan.bookTitle }}</td>
+                <td>{{ loan.author }}</td>
+                <td>{{ loan.borrowDate | date }}</td>
+                <td>{{ loan.returnDate | date }}</td>
+                <td>
+                  <span [ngClass]="{'text-danger': loan.status === 'En retard', 'text-success': loan.status === 'Remis'}">
+                    {{ loan.status }}
+                  </span>
+                </td>
+                <td>
+                  <button class="btn btn-success btn-sm mr-2" (click)="markAsReturned(loan.id)" *ngIf="loan.status === 'IN_PROGRESS'">Marquer comme Remis</button>
+                  <button class="btn btn-warning btn-sm" (click)="notifyUser(loan.borrowerEmail)" *ngIf="loan.status === 'En retard'">Notifier</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Book Management Section -->
+<div class="row">
+  <div class="col-md-12 mb-3">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title">Gestion des Livres</h5>
+        <div class="row mb-4">
+          <div class="col-md-12 text-end">
+            <button class="btn btn-primary mb-3" (click)="openAddBookModal()">Ajouter un Livre</button>
+          </div>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Titre</th>
+                <th>Auteur</th>
+                <th>Catégorie</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let book of books">
+                <td>{{ book.title }}</td>
+                <td>{{ book.author }}</td>
+                <td>{{ book.category }}</td>
+                <td>
+                  <button class="btn btn-warning btn-sm me-2" (click)="editBook(book)">Modifier</button>
+                  <button class="btn btn-danger btn-sm" (click)="deleteBook(book.id)">Supprimer</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Add/Edit Book Modal -->
+<div class="modal fade" tabindex="-1" role="dialog" [ngClass]="{'show': showModal}" [ngStyle]="{'display': showModal ? 'block' : 'none'}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addBookModalLabel">{{ selectedBook ? 'Modifier le Livre' : 'Ajouter un Livre' }}</h5>
+        <button type="button" class="btn-close" (click)="closeModal()" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="addBookForm" (ngSubmit)="addOrUpdateBook()">
+          <div class="form-group">
+            <label for="title">Titre</label>
+            <input type="text" id="title" class="form-control" formControlName="title" required>
+          </div>
+          <div class="form-group">
+            <label for="author">Auteur</label>
+            <input type="text" id="author" class="form-control" formControlName="author" required>
+          </div>
+          <div class="form-group">
+            <label for="description">Description</label>
+            <textarea id="description" class="form-control" formControlName="description" required></textarea>
+          </div>
+          <div class="form-group">
+            <label for="category">Catégorie</label>
+            <input type="text" id="category" class="form-control" formControlName="category" required>
+          </div>
+          <div class="form-group mb-3">
+            <label for="image">Image (URL ou Base64)</label>
+            <input type="text" id="image" class="form-control" formControlName="image">
+          </div>
+          <button type="submit" class="btn btn-primary">{{ selectedBook ? 'Mettre à jour' : 'Enregistrer' }}</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<!-- Footer -->
+
+<app-footer></app-footer>

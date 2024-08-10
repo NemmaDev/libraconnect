@@ -1,0 +1,46 @@
+<footer class="bg-dark text-white mt-5 p-4">
+  <div class="container">
+    <div class="row">
+      <!-- Links Section -->
+      <div class="col-md-4 mb-3">
+        <h5>Liens Utiles</h5>
+        <ul class="list-unstyled">
+          <li><a class="text-white" href="#">À propos</a></li>
+          <li><a class="text-white" href="#">Contact</a></li>
+          <li><a class="text-white" href="#">CGU</a></li>
+        </ul>
+      </div>
+
+      <!-- Social Media Section -->
+      <div class="col-md-4 mb-3">
+        <h5>Suivez-nous</h5>
+        <ul class="list-unstyled text-center social-icons">
+          <li class="d-inline-block mx-2"><a class="text-white" href="#"><i class="fab fa-facebook-f"></i></a></li>
+          <li class="d-inline-block mx-2"><a class="text-white" href="#"><i class="fab fa-twitter"></i></a></li>
+          <li class="d-inline-block mx-2"><a class="text-white" href="#"><i class="fab fa-instagram"></i></a></li>
+          <li class="d-inline-block mx-2"><a class="text-white" href="#"><i class="fab fa-linkedin-in"></i></a></li>
+        </ul>
+      </div>
+
+
+      <!-- Newsletter Subscription Section -->
+      <div class="col-md-4 mb-3">
+        <h5>Abonnez-vous à notre Newsletter</h5>
+        <form (ngSubmit)="subscribeToNewsletter()">
+          <div class="input-group">
+            <input type="email" class="form-control" placeholder="Votre email" aria-label="Votre email" [(ngModel)]="email" name="email" required>
+            <button class="btn btn-primary" type="submit">S'abonner</button>
+          </div>
+          <div *ngIf="successMessage" class="alert alert-success mt-3">{{ successMessage }}</div>
+          <div *ngIf="errorMessage" class="alert alert-danger mt-3">{{ errorMessage }}</div>
+        </form>
+
+      </div>
+
+    </div>
+    <div class="text-center mt-4">
+      <p>&copy; 2024 LibraConnect. Tous droits réservés.</p>
+    </div>
+  </div>
+</footer>
+

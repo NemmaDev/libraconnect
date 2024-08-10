@@ -1,0 +1,64 @@
+<!-- register.component.html -->
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card shadow-sm">
+        <div class="card-header">
+          <h4 class="card-title text-center">Inscription</h4>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+              <label for="name" class="form-label">Nom Complet</label>
+              <input type="text" id="name" class="form-control" formControlName="name">
+              <div *ngIf="registerForm.get('name')?.invalid && registerForm.get('name')?.touched" class="text-danger">
+                Nom requis
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input type="email" id="email" class="form-control" formControlName="email">
+              <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched" class="text-danger">
+                Email valide requis
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label">Mot de Passe</label>
+              <input type="password" id="password" class="form-control" formControlName="password">
+              <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched" class="text-danger">
+                Mot de passe requis
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="dateOfBirth" class="form-label">Date de Naissance</label>
+              <input type="date" id="dateOfBirth" class="form-control" formControlName="dateOfBirth">
+              <div *ngIf="registerForm.get('dateOfBirth')?.invalid && registerForm.get('dateOfBirth')?.touched" class="text-danger">
+                Date de naissance requise
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="phone" class="form-label">Téléphone</label>
+              <input type="tel" id="phone" class="form-control" formControlName="phone">
+              <div *ngIf="registerForm.get('phone')?.invalid && registerForm.get('phone')?.touched" class="text-danger">
+                Téléphone requis
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="address" class="form-label">Adresse</label>
+              <input type="text" id="address" class="form-control" formControlName="address">
+              <div *ngIf="registerForm.get('address')?.invalid && registerForm.get('address')?.touched" class="text-danger">
+                Adresse requise
+              </div>
+            </div>
+            <div class="text-center">
+              <button type="submit" class="btn btn-primary" [disabled]="registerForm.invalid">S'inscrire</button>
+            </div>
+          </form>
+        </div>
+        <div class="card-footer text-center">
+          <p>Déjà un compte ? <a [routerLink]="['/login']">Connectez-vous ici</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

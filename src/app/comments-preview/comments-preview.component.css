@@ -1,0 +1,23 @@
+.avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #007bff; /* Bordure bleue autour de l'image */
+}
+
+.card-body {
+  background-color: #f8f9fa; /* Couleur de fond légère pour les cartes */
+  border-radius: 8px; /* Coins arrondis pour la carte */
+}
+
+.card-title {
+  font-size: 1.25rem; /* Taille du texte du nom */
+  font-weight: bold;
+  color: #343a40; /* Couleur du texte du nom */
+}
+
+.card-text {
+  font-size: 1rem; /* Taille du texte du commentaire */
+  color: #6c757d; /* Couleur du texte du commentaire */
+}

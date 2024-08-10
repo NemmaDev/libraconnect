@@ -1,0 +1,81 @@
+<!-- Navbar -->
+<app-navbar class="fixed-top"></app-navbar>
+
+<!-- Contenu principal -->
+<div class="container my-5">
+  <ng-container *ngIf="book; else emptyState">
+    <h2 class="text-center mb-4 pt-5">Emprunter un Livre</h2>
+    <div class="row">
+      <div class="col-md-4">
+        <img [src]="book?.image" class="img-fluid" [alt]="book?.title">
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title">{{ book?.title }}</h5>
+          <p class="card-text"><strong>Auteur:</strong> {{ book?.author }}</p>
+          <p class="card-text">{{ book?.description }}</p>
+          <div class="text-center" *ngIf="!isBorrowed">
+            <button class="btn btn-primary mt-2" (click)="showConfirmModal()">Emprunter</button>
+            <button class="btn btn-secondary mt-2" (click)="resetPage()">Annuler</button>
+          </div>
+          <div class="text-center" *ngIf="isBorrowed">
+            <p class="text-success">Vous avez emprunté ce livre. La date de retour est le {{ returnDate | date:'dd/MM/yyyy' }}.</p>
+            <button class="btn btn-secondary mt-2" (click)="resetPage()">Annuler</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <!-- Modal de confirmation -->
+  <div class="modal" tabindex="-1" role="dialog" [ngClass]="{'show': showModal}" [ngStyle]="{'display': showModal ? 'block' : 'none'}">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Confirmer l'emprunt</h5>
+          <button type="button" class="close" (click)="closeModal()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Êtes-vous sûr de vouloir emprunter ce livre ?</p>
+          <p><strong>Titre:</strong> {{ selectedBook?.title }}</p>
+          <p><strong>Auteur:</strong> {{ selectedBook?.author }}</p>
+          <p><strong>Date de retour prévue:</strong> {{ returnDate | date:'dd/MM/yyyy' }}</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="closeModal()">Annuler</button>
+          <button type="button" class="btn btn-primary" (click)="confirmBorrow()">Confirmer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #emptyState>
+    <div class="container my-5">
+      <h2 class="text-center mb-4 pt-5">Aucun livre sélectionné</h2>
+      <p class="text-center">Veuillez sélectionner un livre dans le catalogue pour l'emprunter.</p>
+    </div>
+  </ng-template>
+
+  <!-- Liste des emprunts de l'utilisateur -->
+  <div *ngIf="userBorrows.length > 0" class="my-5">
+    <h3 class="text-center mb-4">Mes Emprunts</h3>
+    <div *ngFor="let borrow of userBorrows" class="card mb-3">
+      <div class="card-body">
+        <h5 class="card-title">{{ borrow.book.title }}</h5>
+        <p class="card-text"><strong>Auteur:</strong> {{ borrow.book.author }}</p>
+        <p class="card-text"><strong>Date d'emprunt:</strong> {{ borrow.borrowDate | date:'dd/MM/yyyy' }}</p>
+        <p class="card-text"><strong>Date de retour:</strong> {{ borrow.returnDate | date:'dd/MM/yyyy' }}</p>
+        <button class="btn"
+          [ngClass]="{'btn-success': !isOverdue(borrow.returnDate), 'btn-danger': isOverdue(borrow.returnDate)}">
+          {{ isOverdue(borrow.returnDate) ? 'Retard' : 'En cours' }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Footer -->
+<app-footer></app-footer>

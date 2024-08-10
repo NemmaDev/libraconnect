@@ -1,0 +1,41 @@
+/* Style pour les cartes */
+.card {
+  border-radius: 0.75rem; /* Coins arrondis */
+  overflow: hidden; /* Cache les débordements */
+}
+
+.card-img-top {
+  block-size: 200px; /* Hauteur fixe pour les images */
+  object-fit: cover; /* Couvre l'espace tout en maintenant les proportions */
+}
+
+.card-body {
+  padding: 1.5rem; /* Espacement intérieur */
+}
+
+.card-title {
+  font-family: 'Roboto', sans-serif; /* Police moderne */
+  font-size: 1.25rem; /* Taille de police du titre */
+  font-weight: bold; /* Gras */
+  color: #333; /* Couleur du texte */
+}
+
+.card-text {
+  font-family: 'Arial', sans-serif; /* Police lisible */
+  font-size: 0.875rem; /* Taille de police du texte */
+  color: #555; /* Couleur du texte */
+}
+
+.btn-primary {
+  background-color: #007bff; /* Couleur du bouton */
+  border-color: #007bff; /* Couleur de bordure du bouton */
+}
+
+.btn-primary:hover {
+  background-color: #0056b3; /* Couleur du bouton au survol */
+  border-color: #004085; /* Couleur de bordure du bouton au survol */
+}
+
+.shadow-sm {
+  box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important; /* Ombre légère */
+}

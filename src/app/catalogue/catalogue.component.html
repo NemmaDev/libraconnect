@@ -1,0 +1,51 @@
+<app-navbar class="fixed-top"></app-navbar>
+
+<div class="container my-5">
+  <h2 class="text-center mb-4 pt-5">Catalogue de Livres</h2>
+  <div class="row mb-4">
+    <div class="col-md-4 offset-md-4">
+      <select class="form-select" [(ngModel)]="selectedCategory" (change)="filterBooks()">
+        <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+      </select>
+    </div>
+  </div>
+  <div class="row">
+    <div *ngFor="let book of filteredBooks" class="col-md-4">
+      <div class="card mb-4 shadow-sm">
+        <img [src]="book.image" class="card-img-top" [alt]="book.title">
+        <div class="card-body">
+          <h5 class="card-title text-center">{{ book.title }}</h5>
+          <p class="card-text text-center">{{ book.author }}</p>
+          <p class="card-text text-center">{{ book.description }}</p>
+          <div class="text-center">
+            <button class="btn btn-primary mt-2" (click)="openModal(book)">En savoir plus</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modale pour les détails du livre -->
+<div class="modal fade" tabindex="-1" role="dialog" [ngClass]="{'show': showModal}" [ngStyle]="{'display': showModal ? 'block' : 'none'}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{ selectedBook?.title }}</h5>
+        <button type="button" class="btn-close" (click)="closeModal()" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <img [src]="selectedBook?.image" class="img-fluid mb-3" [alt]="selectedBook?.title">
+        <p><strong>Auteur:</strong> {{ selectedBook?.author }}</p>
+        <p>{{ selectedBook?.description }}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeModal()">Fermer</button>
+        <button type="button" class="btn btn-primary" (click)="borrowBook(selectedBook)">Emprunter</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<app-footer></app-footer>

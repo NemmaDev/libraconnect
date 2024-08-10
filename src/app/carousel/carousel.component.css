@@ -1,0 +1,10 @@
+.carousel-inner img {
+  height: 60vh; /* Adjust height as needed */
+  object-fit: cover; /* Ensure image covers the space */
+}
+
+.carousel-caption {
+  background-color: rgba(0, 0, 0, 0.5); /* Background with opacity */
+  border-radius: 10px; /* Rounded corners */
+  padding: 10px;
+}

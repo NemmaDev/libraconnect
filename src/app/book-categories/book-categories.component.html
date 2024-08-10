@@ -1,0 +1,15 @@
+<div class="container my-5">
+  <h2 class="text-center mb-4">Catégories de Livres</h2>
+  <div class="row">
+    <div class="col-md-4" *ngFor="let category of categories">
+      <div class="card mb-4 shadow-sm">
+        <img [src]="category.imageSrc" class="card-img-top" [alt]="category.title">
+        <div class="card-body">
+          <h5 class="card-title text-center">{{ category.title }}</h5>
+          <p class="card-text">{{ category.description }}</p>
+          <a [routerLink]="['/catalogue', category.title]" class="btn btn-primary w-100">Voir plus</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

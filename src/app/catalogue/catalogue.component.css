@@ -1,0 +1,85 @@
+/* src/app/components/book-catalog/book-catalog.component.css */
+.card {
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.card-img-top {
+  block-size: 200px;
+  object-fit: cover;
+}
+.card-body {
+  text-align: center;
+}
+
+.card-title, .card-text {
+  margin-block-end: 0.5rem;
+}
+
+.modal.show {
+  display: block;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.modal-dialog {
+  max-inline-size: 600px;
+  margin: 1.75rem auto;
+}
+
+.modal-content {
+  padding: 20px;
+}
+
+.modal-header, .modal-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-header .close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+}
+
+.modal-img {
+  inline-size: 50%;
+  block-size: 100%; /* Ajuste la hauteur de l'image de la modale */
+  object-fit: cover; /* S'assure que l'image couvre toute la zone sans déformation */
+}
+
+.modal-body p {
+  text-align: center;
+}
+/* Style pour le footer en mode dark */
+footer h5 {
+  margin-block-end: 1rem;
+  font-weight: bold;
+}
+
+footer a {
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+footer .social-icons {
+  margin-block-start: 1rem;
+}
+
+footer .social-icons li {
+  font-size: 1.5rem;
+}
+
+footer .input-group input {
+  border-radius: 0;
+}
+
+footer .input-group button {
+  border-radius: 0;
+}

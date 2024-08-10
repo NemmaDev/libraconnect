@@ -1,0 +1,60 @@
+/* Assurez-vous que ce CSS est appliqué correctement */
+.navbar {
+  background-color: #f8f9fa;
+}
+
+.navbar-brand  {
+  margin-left: 10px;
+}
+
+.navbar-nav {
+  margin-left: auto;
+}
+
+.nav-link {
+  color: #007bff;
+}
+
+.nav-link:hover {
+  color: #007bff;
+}
+
+.nav-item.active .nav-link {
+  font-weight: bold;
+  color: #007bff;
+  border-bottom: 2px solid #007bff;
+}
+
+.form-inline {
+  display: flex;
+  align-items: center;
+}
+
+.form-control {
+  margin-right: 10px;
+}
+
+.btn-outline-success {
+  margin-left: 10px;
+}
+
+/* Responsive styles */
+@media (max-width: 992px) {
+  .navbar-nav {
+    margin-top: 0.5rem;
+  }
+
+  .form-inline {
+    margin-top: 0.5rem;
+    justify-content: center;
+  }
+
+  .form-control {
+    margin: 0;
+    width: 80%;
+  }
+
+  .btn-outline-success {
+    margin-left: 0;
+  }
+}
